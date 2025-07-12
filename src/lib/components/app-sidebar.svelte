@@ -36,7 +36,7 @@
   ];
 </script>
 
-<Sidebar.Root>
+<Sidebar.Root variant="sidebar">
   <Sidebar.Content>
     <Sidebar.Group>
       <Sidebar.GroupLabel>Application</Sidebar.GroupLabel>

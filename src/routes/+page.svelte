@@ -2,6 +2,7 @@
   import { invoke } from "@tauri-apps/api/core";
   import { Button } from "$lib/components/ui/button/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
+  import * as Resizable from "$lib/components/ui/resizable/index.js";
 
   let name = $state("");
   let greetMsg = $state("");
@@ -14,19 +15,27 @@
 </script>
 
 <main class="flex flex-col justify-center items-center flex-1 gap-2">
-  <h1
-    class="text-xl text-red-400 font-bold
+  <Resizable.PaneGroup direction="vertical">
+    <Resizable.Pane class="p-4">
+      <h1
+        class="text-xl text-red-400 font-bold
     animate-in fade-in zoom-in duration-100"
-  >
-    Welcome to Tauri + Svelte
-  </h1>
-  <form class="flex flex-row gap-4" onsubmit={greet}>
-    <Input placeholder="Enter a name..." bind:value={name} />
-    <Button type="submit">Greet</Button>
-  </form>
-  {#if greetMsg}
-    <p class="text-xl animate-in fade-in slide-in-from-left-8 duration-200">
-      {greetMsg}
-    </p>
-  {/if}
+      >
+        Welcome to Tauri + Svelte
+      </h1>
+      <form class="flex flex-row gap-4" onsubmit={greet}>
+        <Input placeholder="Enter a name..." bind:value={name} />
+        <Button type="submit">Greet</Button>
+      </form>
+    </Resizable.Pane>
+    <Resizable.Handle />
+    <Resizable.Pane defaultSize={20} class="p-2">
+      <h2 class="font-bold">Console</h2>
+      {#if greetMsg}
+        <p class="text-xl animate-in fade-in slide-in-from-left-8 duration-200">
+          {greetMsg}
+        </p>
+      {/if}
+    </Resizable.Pane>
+  </Resizable.PaneGroup>
 </main>
