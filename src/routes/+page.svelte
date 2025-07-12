@@ -1,10 +1,7 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
-  import SunIcon from "@lucide/svelte/icons/sun";
-  import MoonIcon from "@lucide/svelte/icons/moon";
- 
-  import { toggleMode } from "mode-watcher";
   import { Button } from "$lib/components/ui/button/index.js";
+  import { Input } from "$lib/components/ui/input/index.js";
 
   let name = $state("");
   let greetMsg = $state("");
@@ -16,22 +13,20 @@
   }
 </script>
 
-<main class="flex flex-col justify-center items-center w-screen h-screen">
-  <h1 class="text-xl text-red-400 font-bold">Welcome to Tauri + Svelte</h1>
-  <form class="row" onsubmit={greet}>
-    <input id="greet-input" placeholder="Enter a name..." bind:value={name} class="border-1 border-blue-200 rounded-lg p-2"/>
-    <button type="submit">Greet</button>
+<main class="flex flex-col justify-center items-center flex-1 gap-2">
+  <h1
+    class="text-xl text-red-400 font-bold
+    animate-in fade-in zoom-in duration-100"
+  >
+    Welcome to Tauri + Svelte
+  </h1>
+  <form class="flex flex-row gap-4" onsubmit={greet}>
+    <Input placeholder="Enter a name..." bind:value={name} />
+    <Button type="submit">Greet</Button>
   </form>
-  <p class="text-xl">{greetMsg}</p>
-  <Button>Click</Button>
-  <Button onclick={toggleMode} variant="outline" size="icon">
-    <SunIcon
-      class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 !transition-all dark:-rotate-90 dark:scale-0"
-    />
-    <MoonIcon
-      class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 !transition-all dark:rotate-0 dark:scale-100"
-    />
-    <span class="sr-only">Toggle theme</span>
-  </Button>
+  {#if greetMsg}
+    <p class="text-xl animate-in fade-in slide-in-from-left-8 duration-200">
+      {greetMsg}
+    </p>
+  {/if}
 </main>
-
