@@ -6,6 +6,7 @@
   import ThemeToggle from "$lib/components/theme-toggle.svelte";
   import * as Breadcrumb from "$lib/components/ui/breadcrumb/index.js";
   import { Separator } from "$lib/components/ui/separator/index.js";
+  import * as Resizable from "$lib/components/ui/resizable/index.js";
 
   let { children } = $props();
 </script>
@@ -44,7 +45,13 @@
         <ThemeToggle />
       </header>
       <div class="flex-1 flex flex-col">
-        {@render children?.()}
+        <Resizable.PaneGroup direction="vertical">
+          <Resizable.Pane class="p-4">
+            {@render children?.()}
+          </Resizable.Pane>
+          <Resizable.Handle />
+          <Resizable.Pane defaultSize={20} class="p-2">console</Resizable.Pane>
+        </Resizable.PaneGroup>
       </div>
     </main>
   </Sidebar.Inset>
