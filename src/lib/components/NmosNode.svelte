@@ -1,12 +1,11 @@
 <script lang="ts">
-  import ResistorNodeNew from "./circuit/primitives/ResistorNode.svelte";
+  import NmosNodeNew from "./circuit/primitives/NmosNode.svelte";
   
-  // Props that can be passed to customize the resistor
+  // Props using Svelte 5 $props rune
   interface Props {
     id?: string;
     position?: { x: number; y: number };
     label?: string;
-    resistance?: string;
     width?: number;
     height?: number;
   }
@@ -14,4 +13,7 @@
   const props: Props = $props();
 </script>
 
-<ResistorNodeNew {...props} />
+<NmosNodeNew {...props} />
+
+
+
