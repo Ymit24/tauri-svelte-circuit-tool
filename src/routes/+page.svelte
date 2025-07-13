@@ -4,7 +4,7 @@
 </script>
 
 <main class="flex flex-col justify-center flex-1 gap-2 h-full">
-  <Svelvet id="my-canvas" TD minimap controls locked>
+  <Svelvet id="my-canvas" TD minimap controls>
     <!-- First resistor -->
     <ResistorNode
       id="resistor1"

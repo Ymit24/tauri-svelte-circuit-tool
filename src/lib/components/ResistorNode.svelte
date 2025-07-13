@@ -16,7 +16,7 @@
   const isDark = getContext("theme") === "dark";
 </script>
 
-<Node {id} {position} {width} {height} {bgColor} {borderColor} let:grabHandle>
+<Node {id} {position} {width} {height} bgColor="transparent" borderColor="transparent" let:grabHandle>
   <div class="resistor-container" use:grabHandle>
     <!-- Left anchor for input -->
     <Anchor id="input" input direction="west" />
@@ -28,14 +28,14 @@
         class="resistor-svg"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <!-- Connection lines -->
+        <!-- Connection lines extending to edges -->
         <line
           x1="0"
           y1="15"
           x2="20"
           y2="15"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="3"
         />
         <line
           x1="80"
@@ -43,7 +43,7 @@
           x2="100"
           y2="15"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="3"
         />
 
         <!-- Resistor zig-zag pattern -->
@@ -51,7 +51,7 @@
           d="M20,15 L25,5 L30,25 L35,5 L40,25 L45,5 L50,25 L55,5 L60,25 L65,5 L70,25 L75,5 L80,15"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="3"
           stroke-linejoin="round"
         />
       </svg>
@@ -77,23 +77,26 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: 8px;
     position: relative;
-    background: var(--background-color, #ffffff);
-    border: 2px solid var(--border-color, #e2e8f0);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
     cursor: grab;
+    box-shadow: none !important;
+    filter: none !important;
   }
 
   .resistor-container:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
+    box-shadow: none !important;
   }
 
   .resistor-container:active {
     cursor: grabbing;
+  }
+
+  /* Remove shadow from Svelvet's Node wrapper */
+  :global(div[role="button"]:has(.resistor-container)) {
+    box-shadow: none !important;
   }
 
   .resistor-symbol {
@@ -101,7 +104,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 8px;
+    margin: 0;
   }
 
   .resistor-svg {
@@ -122,6 +125,7 @@
     font-size: 12px;
     color: var(--text-color, #374151);
     white-space: nowrap;
+    filter: none;
   }
 
   .resistor-label {
@@ -165,28 +169,28 @@
     }
   }
 
-  /* Anchor positioning */
-  :global(.resistor-node .anchor) {
+  /* Anchor positioning - align with resistor symbol ends */
+  :global(.resistor-container .anchor) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--anchor-color, #3b82f6);
     border: 2px solid var(--anchor-border, #ffffff);
     z-index: 10;
   }
 
-  :global(.resistor-node .anchor[data-direction="west"]) {
-    left: -6px;
+  :global(.resistor-container .anchor[data-direction="west"]) {
+    left: -4px;
   }
 
-  :global(.resistor-node .anchor[data-direction="east"]) {
-    right: -6px;
+  :global(.resistor-container .anchor[data-direction="east"]) {
+    right: -4px;
   }
 
-  :global(.resistor-node .anchor:hover) {
+  :global(.resistor-container .anchor:hover) {
     background: var(--anchor-hover-color, #2563eb);
     transform: translateY(-50%) scale(1.1);
   }
