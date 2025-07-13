@@ -46,7 +46,7 @@
       </header>
       <div class="flex-1 flex flex-col">
         <Resizable.PaneGroup direction="vertical">
-          <Resizable.Pane class="p-4">
+          <Resizable.Pane>
             {@render children?.()}
           </Resizable.Pane>
           <Resizable.Handle />
